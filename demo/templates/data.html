@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Conduit Demo</title>
+</head>
+<body>
+    <a href="{% url 'index' %}">&leftarrow; Back</a>
+
+    <h3>Data Lake</h3>
+
+    {% for schema_name, links in data.items %}
+        <div>
+            <h4>Data Schema: {{ schema_name }}</h4>
+            <div style="padding-left: 1em">
+                {% for link in links %}
+                    <div><a href="{{ link }}" target="_blank">{{ link }}</a></div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+
+</body>
+</html>
