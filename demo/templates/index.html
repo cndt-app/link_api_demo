@@ -5,9 +5,8 @@
     <title>Conduit Demo</title>
 </head>
 <body>
-    <h3>User GUID: {{ user_guid }}</h3>
 
-    <h3>Connections</h3>
+    <h3>Connections for user with GUID: {{ user_guid }}</h3>
     {% for driver in credentials %}
         <div style="margin-left: 2em">
             <h4>
@@ -15,10 +14,10 @@
                 <a href="#"
                    onclick="window.open('{% url 'connect' driver_id=driver.id %}')"
                    style="padding: 0.3em 0.8em; border-radius: 0.3em; background: #183dfb; color: white; text-decoration: none;">
-                    Connect
+                    New Connection
                 </a>
             </h4>
-
+            <h5>Existing connections to {{ driver.name }}</h5>
             <div style="padding: 0 0 1em 1em">
                 {% for cred in driver.credentials %}
                     <div style="margin-bottom: 2em">
