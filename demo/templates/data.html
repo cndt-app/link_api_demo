@@ -14,13 +14,15 @@
             <h4>Data Schema: {{ schema_name }}</h4>
             <div style="padding-left: 1em">
                 {% for link in links %}
-                    <div><b>Data:</b></div>
-                    <div><a href="{{ link.url }}" target="_blank">{{ link.url }}</a></div>
-                    <div>Other meta-data:</div>
-
-                    {% for key, value in link.items %}
-                          <li>{{key}}:  {{value}}</li>
-                        {% endfor %}
+                    <ul>
+                        <li><b>Date: {{ link.date }}</b></li>
+                        <li>Url: <a href="{{ link.url }}" target="_blank">download</a></li>
+                        <li>AccountID: {{ link.account_id }}</li>
+                        <li>Service status: {{ link.service_status }}</li>
+                        <li>Data status: {{ link.data_status }}</li>
+                        <li>Data updated at: {{ link.data_updated_at }}</li>
+                    </ul>
+                    <br>
                 {% endfor %}
             </div>
         </div>

@@ -23,6 +23,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('', views.IndexView.as_view(), name='index'),
-    path('<str:driver_id>/', views.ConnectView.as_view(), name='connect'),
-    path('<str:driver_id>/<int:account_id>/', views.DataLakeView.as_view(), name='data_lake'),
+    path('connect/<str:driver_id>/', views.ConnectView.as_view(), name='connect'),
+    path('data_lake/<str:driver_id>/<int:account_id>/', views.DataLakeView.as_view(), name='data_lake'),
 ]
