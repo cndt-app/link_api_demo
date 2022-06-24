@@ -10,7 +10,7 @@
                 {% for link in links %}
                     <ul>
                         <li><b>Date: {{ link.date }}</b></li>
-                        <li>Url: <a href="{{ link.url }}" target="_blank">download</a></li>
+                        {% if link.url %}<li>Url: <a href="{{ link.url }}" target="_blank">download</a></li>{% endif %}
                         <li>AccountID: {{ link.account_id }}</li>
                         <li>Service status: {{ link.service_status }}</li>
                         <li>Data status: {{ link.data_status }}</li>
