@@ -4,8 +4,6 @@ from typing import Any, Optional
 import requests
 from urllib.parse import urljoin
 
-EXAMPLE_USER_GUID = 'abc123'
-
 # dev url & token
 CONDUIT_API_URL = "https://link-dev.getconduit.app"
 CONDUIT_API_TOKEN = " place api key here "
@@ -13,17 +11,21 @@ CONDUIT_API_TOKEN = " place api key here "
 
 class ConduitAPI:
 
+    def get_users(self) -> str:
+        res = self._request('users/', method='GET')
+        return res.json()
+
     def get_user_token(self, user_guid: str) -> str:
         res = self._request('auth/token/', data={'guid': user_guid})
         return res.json()['token']
 
     @staticmethod
-    def _request(path, data: dict[str, any] = None):
+    def _request(path, method: str = 'POST', data: dict[str, any] = None):
         headers = {
             'accept': 'application/json',
             'Authorization': f'Bearer {CONDUIT_API_TOKEN}',
         }
-        res = requests.request('POST', urljoin(CONDUIT_API_URL, path), headers=headers, json=data)
+        res = requests.request(method, urljoin(CONDUIT_API_URL, path), headers=headers, json=data)
         res.raise_for_status()
 
         return res
