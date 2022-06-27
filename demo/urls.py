@@ -24,7 +24,7 @@ urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
     path('user/<str:guid>/', include([
         path('', views.UserInfo.as_view(), name='user_info'),
-        path('edit_connections/', views.EditConnectionsView.as_view(), name='edit_connections'),
+        path('connections_ui/', views.UIConnectionsView.as_view(), name='connections_ui'),
         path('connect/<str:driver_id>/', views.ConnectView.as_view(), name='connect'),
         path('data_lake/<str:driver_id>/<int:account_id>/', views.DataLakeView.as_view(), name='data_lake'),
     ])),

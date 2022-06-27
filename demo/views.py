@@ -34,21 +34,19 @@ class UserInfo(TemplateView):
             'credentials': credentials,
         }
 
-class EditConnectionsView(RedirectView):
+class UIConnectionsView(RedirectView):
 
     def get_redirect_url(self, guid: str, *args, **kwargs):
         user_token = ConduitAPI().get_user_token(guid)
-        edit_url = ConduitUserAPI(user_token).get_edit_url()
 
-        return edit_url
+        return ConduitUserAPI(user_token).get_ui_url()
 
 class ConnectView(RedirectView):
 
     def get_redirect_url(self, guid: str, driver_id: str, *args, **kwargs):
         user_token = ConduitAPI().get_user_token(guid)
-        connect_url = ConduitUserAPI(user_token).get_connect_url(driver_id)
 
-        return connect_url
+        return ConduitUserAPI(user_token).get_connect_url(driver_id)
 
 
 class DataLakeView(TemplateView):
