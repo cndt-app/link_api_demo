@@ -1,45 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Conduit Demo</title>
-</head>
-<body>
-
-    <h3>Connections for user with GUID: {{ user_guid }}</h3>
-    {% for driver in credentials %}
-        <div style="margin-left: 2em">
-            <h4>
-                {{ driver.name }} ({{ driver.id }})
-                <a href="#"
-                   onclick="window.open('{% url 'connect' driver_id=driver.id %}')"
-                   style="padding: 0.3em 0.8em; border-radius: 0.3em; background: #183dfb; color: white; text-decoration: none;">
-                    New Connection
-                </a>
-            </h4>
-            <h5>Existing connections to {{ driver.name }}</h5>
-            <div style="padding: 0 0 1em 1em">
-                {% for cred in driver.credentials %}
-                    <div style="margin-bottom: 2em">
-                        <div>ID: {{ cred.id }}</div>
-                        <div>Name: {{ cred.name }}</div>
-                        <div>Created At: {{ cred.created_at }}</div>
-
-                        <div style="padding-left: 2em">
-                            {% for acc in cred.accounts %}
-                                <div style="margin-bottom: 1em">
-                                    <div>Account ID: {{ acc.id }}</div>
-                                    <div>Account Name: {{ acc.name }}</div>
-                                    <div>Account Native ID: {{ acc.native_id }}</div>
-                                    <div>Account is error: {{ acc.is_error }}</div>
-                                    <div>Account DataLake: <a href="{% url 'data_lake' driver_id=driver.id account_id=acc.id%}">DataLake</a> </div>
-                                </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
-    {% endfor %}
-</body>
-</html>
+{% extends 'base.html' %}
+{% block navigation %}{% endblock %}
+{% block content %}
+    <h3>App Users</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>created_at</th>
+            <th>guid</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.created_at }}</td>
+                <td>{{ user.guid }}</td>
+                <td>
+                    <a href="{% url 'user_info' guid=user.guid %}">
+                        see connections
+                    </a>
+                    <br>
+                    <a href="{% url 'connections_ui' guid=user.guid %}">
+                        edit connections
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <h4>Add new User</h4>
+    <form method="post">
+        {% csrf_token %}
+        <label>
+            <input type="text" name="guid" placeholder="new username">
+        </label>
+        <input type="submit" value="Add User">
+    </form>
+{% endblock %}

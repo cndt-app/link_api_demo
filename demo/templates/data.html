@@ -1,11 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Conduit Demo</title>
-</head>
-<body>
-    <a href="{% url 'index' %}">&leftarrow; Back</a>
+{% extends 'base.html' %}
+{% block content %}
 
     <h3>Data Lake</h3>
 
@@ -16,7 +10,7 @@
                 {% for link in links %}
                     <ul>
                         <li><b>Date: {{ link.date }}</b></li>
-                        <li>Url: <a href="{{ link.url }}" target="_blank">download</a></li>
+                        {% if link.url %}<li>Url: <a href="{{ link.url }}" target="_blank">download</a></li>{% endif %}
                         <li>AccountID: {{ link.account_id }}</li>
                         <li>Service status: {{ link.service_status }}</li>
                         <li>Data status: {{ link.data_status }}</li>
@@ -27,6 +21,4 @@
             </div>
         </div>
     {% endfor %}
-
-</body>
-</html>
+{% endblock %}

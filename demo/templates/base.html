@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Conduit Demo</title>
+    <style>
+        body {
+            padding: 1rem;
+        }
+
+        h3 {
+            margin-bottom: 2rem;
+        }
+
+        table {
+            border-collapse: collapse;
+            margin-bottom: 2rem;
+        }
+
+        table td, table th {
+            border: 1px solid #ccc;
+            padding: 0.5rem 1rem;
+        }
+
+        table tr:hover {
+            background-color: #eef;
+        }
+
+        input {
+            padding: 0.5rem 1rem;
+        }
+    </style>
+</head>
+<body>
+{% block navigation %}<a href="{% url 'index' %}">&leftarrow; Back</a>{% endblock %}
+{% block content %}{% endblock %}
+</body>
+</html>
