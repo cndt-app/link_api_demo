@@ -1,13 +1,15 @@
 import datetime
 
 from django.shortcuts import redirect
-from django.views.generic import TemplateView, RedirectView
+from django.views.generic import FormView, RedirectView, TemplateView
 
 from .conduit_api import ConduitAPI, ConduitUserAPI
+from .forms import AddNewUserForm
 
 
-class IndexView(TemplateView):
+class IndexView(FormView):
     template_name = 'index.html'
+    form_class = AddNewUserForm
 
     def get_context_data(self, **kwargs):
         users = ConduitAPI().get_users()
@@ -16,11 +18,8 @@ class IndexView(TemplateView):
             'users': users,
         }
 
-    def post(self, request):
-        if guid := request.POST.get('guid'):
-            return redirect('user_info', guid=guid)
-        
-        return super().get(request)
+    def form_valid(self, form):
+        return redirect('user_info', guid=form.cleaned_data['guid'])
 
 
 class UserInfo(TemplateView):

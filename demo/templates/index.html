@@ -19,6 +19,10 @@
                     <a href="{% url 'user_info' guid=user.guid %}">
                         see connections
                     </a>
+                    <br>
+                    <a href="{{ user.edit_url }}">
+                        edit connections
+                    </a>
                 </td>
             </tr>
         {% endfor %}
