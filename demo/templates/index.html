@@ -20,7 +20,7 @@
                         see connections
                     </a>
                     <br>
-                    <a href="{{ user.edit_url }}">
+                    <a href="{% url 'edit_connections' guid=user.guid %}">
                         edit connections
                     </a>
                 </td>

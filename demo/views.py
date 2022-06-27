@@ -34,6 +34,14 @@ class UserInfo(TemplateView):
             'credentials': credentials,
         }
 
+class EditConnectionsView(RedirectView):
+
+    def get_redirect_url(self, guid: str, *args, **kwargs):
+        user_token = ConduitAPI().get_user_token(guid)
+        edit_url = ConduitUserAPI(user_token).get_edit_url()
+
+        return edit_url
+
 class ConnectView(RedirectView):
 
     def get_redirect_url(self, guid: str, driver_id: str, *args, **kwargs):

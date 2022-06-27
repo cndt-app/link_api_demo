@@ -40,6 +40,10 @@ class ConduitUserAPI:
         res = self._request('credentials/')
         return res
 
+    def get_edit_url(self) -> str:
+        res = self._request('credentials/edit/')
+        return res['url']
+
     def get_connect_url(self, driver_id: str) -> str:
         res = self._request(f'credentials/connect/{driver_id}/')
         return res['url']
