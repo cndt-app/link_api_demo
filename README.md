@@ -18,3 +18,16 @@ see `demo/conduit_api.py`
 ### Usage
 see `demo/views.py`
 
+## Use Docker
+
+### Build image
+
+```sh
+$ docker build -t link_api_demo .
+```
+
+### Run
+
+```sh
+$ docker run --rm -p 8000:8000 -t link_api_demo
+```
