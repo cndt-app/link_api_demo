@@ -5,18 +5,18 @@ import requests
 from urllib.parse import urljoin
 
 # dev url & token
-CONDUIT_API_URL = "https://link-dev.getconduit.app"
+CONDUIT_API_URL = "https://api-dev.getconduit.app"
 CONDUIT_API_TOKEN = " place api key here "
 
 
 class ConduitAPI:
 
     def get_users(self) -> str:
-        res = self._request('users/', method='GET')
+        res = self._request('link/users/', method='GET')
         return res.json()
 
     def get_user_token(self, user_guid: str) -> str:
-        res = self._request('auth/token/', data={'guid': user_guid})
+        res = self._request('link/auth/token/', data={'guid': user_guid})
         return res.json()['token']
 
     @staticmethod
@@ -37,15 +37,15 @@ class ConduitUserAPI:
         self._token = token
 
     def get_credentials(self) -> list[dict[str, Any]]:
-        res = self._request('credentials/')
+        res = self._request('link/credentials/')
         return res
 
     def get_ui_url(self) -> str:
-        res = self._request('credentials/ui/')
+        res = self._request('link/credentials/ui/')
         return res['url']
 
     def get_connect_url(self, driver_id: str) -> str:
-        res = self._request(f'credentials/connect/{driver_id}/')
+        res = self._request(f'link/credentials/connect/{driver_id}/')
         return res['url']
 
     def get_data_urls(
@@ -59,7 +59,7 @@ class ConduitUserAPI:
         if account_id:
             data['account_id'] = account_id
 
-        res = self._request('data_lake/', data)
+        res = self._request('link/data_lake/', data)
         return res
 
     def _request(self, path: str, data: dict[str, any] = None) -> Any:
