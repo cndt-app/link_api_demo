@@ -1,19 +1,19 @@
 {% extends 'base.html' %}
 {% block content %}
     <h3>Connections for user with GUID: {{ user_guid }}</h3>
-    {% for driver in credentials %}
+    {% for integration in credentials %}
         <div style="margin-left: 2em">
             <h4>
-                {{ driver.name }} ({{ driver.id }})
+                {{ integration.name }} ({{ integration.id }})
                 <a href="#"
-                   onclick="window.open('{% url 'connect' guid=user_guid driver_id=driver.id %}')"
+                   onclick="window.open('{% url 'connect' guid=user_guid integration_id=integration.id %}')"
                    style="padding: 0.3em 0.8em; border-radius: 0.3em; background: #183dfb; color: white; text-decoration: none;">
                     New Connection
                 </a>
             </h4>
-            <h5>Existing connections to {{ driver.name }}</h5>
+            <h5>Existing connections to {{ integration.name }}</h5>
             <div style="padding: 0 0 1em 1em">
-                {% for cred in driver.credentials %}
+                {% for cred in integration.credentials %}
                     <div style="margin-bottom: 2em">
                         <div>ID: {{ cred.id }}</div>
                         <div>Name: {{ cred.name }}</div>
@@ -27,7 +27,7 @@
                                     <div>Account Native ID: {{ acc.native_id }}</div>
                                     <div>Account is error: {{ acc.is_error }}</div>
                                     <div>Account DataLake: <a
-                                        href="{% url 'data_lake' guid=user_guid driver_id=driver.id account_id=acc.id %}">DataLake</a>
+                                        href="{% url 'data_lake' guid=user_guid integration_id=integration.id account=acc.id %}">DataLake</a>
                                     </div>
                                 </div>
                             {% endfor %}

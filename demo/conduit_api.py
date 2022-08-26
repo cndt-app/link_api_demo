@@ -44,20 +44,20 @@ class ConduitUserAPI:
         res = self._request('link/credentials/ui/')
         return res['url']
 
-    def get_connect_url(self, driver_id: str) -> str:
-        res = self._request(f'link/credentials/connect/{driver_id}/')
+    def get_connect_url(self, integration_id: str) -> str:
+        res = self._request(f'link/credentials/connect/{integration_id}/')
         return res['url']
 
     def get_data_urls(
-        self, driver_id: str, date_from: datetime.date, date_to: datetime.date, account_id: Optional[id] = None,
+        self, integration_id: str, date_from: datetime.date, date_to: datetime.date, account: Optional[id] = None,
     ) -> dict[str, list[str]]:
         data = {
-            'driver_id': driver_id,
+            'integration_id': integration_id,
             'date_from': date_from.isoformat(),
             'date_to': date_to.isoformat(),
         }
-        if account_id:
-            data['account_id'] = account_id
+        if account:
+            data['account'] = account
 
         res = self._request('link/data_lake/', data)
         return res
