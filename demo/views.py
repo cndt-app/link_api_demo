@@ -43,24 +43,24 @@ class UIConnectionsView(RedirectView):
 
 class ConnectView(RedirectView):
 
-    def get_redirect_url(self, guid: str, driver_id: str, *args, **kwargs):
+    def get_redirect_url(self, guid: str, integration_id: str, *args, **kwargs):
         user_token = ConduitAPI().get_user_token(guid)
 
-        return ConduitUserAPI(user_token).get_connect_url(driver_id)
+        return ConduitUserAPI(user_token).get_connect_url(integration_id)
 
 
 class DataLakeView(TemplateView):
     template_name = 'data.html'
 
-    def get_context_data(self, guid: str, driver_id: str, account_id: str, **kwargs):
+    def get_context_data(self, guid: str, integration_id: str, account: str, **kwargs):
         user_token = ConduitAPI().get_user_token(guid)
         today = datetime.date.today()
 
         data = ConduitUserAPI(user_token).get_data_urls(
-            driver_id,
+            integration_id,
             date_from=today - datetime.timedelta(days=3),
             date_to=today,
-            account_id=account_id,
+            account=account,
         )
 
         return {
