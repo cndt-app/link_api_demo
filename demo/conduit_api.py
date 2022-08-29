@@ -52,7 +52,7 @@ class ConduitUserAPI:
         self, integration_id: str, date_from: datetime.date, date_to: datetime.date, account: Optional[id] = None,
     ) -> dict[str, list[str]]:
         data = {
-            'integration_id': integration_id,
+            'integration': integration_id,
             'date_from': date_from.isoformat(),
             'date_to': date_to.isoformat(),
         }
