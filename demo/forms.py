@@ -1,5 +1,5 @@
 from django import forms
 
 
-class AddNewUserForm(forms.Form):
-    guid = forms.CharField()
+class AddNewCompanyForm(forms.Form):
+    company_id = forms.CharField()

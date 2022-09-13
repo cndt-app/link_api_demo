@@ -22,9 +22,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('', views.IndexView.as_view(), name='index'),
-    path('user/<str:guid>/', include([
-        path('', views.UserInfo.as_view(), name='user_info'),
-        path('connections_ui/', views.UIConnectionsView.as_view(), name='connections_ui'),
+    path('company/<str:company_id>/', include([
+        path('', views.CompanyInfo.as_view(), name='company_info'),
         path('connect/<str:integration_id>/', views.ConnectView.as_view(), name='connect'),
         path('data_lake/<str:integration_id>/<int:account>/', views.DataLakeView.as_view(), name='data_lake'),
     ])),
