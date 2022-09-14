@@ -48,9 +48,6 @@ class ConduitCompanyAPI:
         resp = self._request('link/credentials/')
         return resp
 
-    def get_ui_url(self) -> str:
-        return urljoin(CONDUIT_API_URL, f'link/company/page/{self._token}/')
-
     def get_connect_url(self, integration_id: str) -> str:
         res = self._request(f'link/credentials/connect/{integration_id}/')
         return res['url']
