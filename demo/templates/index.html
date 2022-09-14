@@ -1,36 +1,38 @@
 {% extends 'base.html' %}
 {% block navigation %}{% endblock %}
 {% block content %}
-    <h3>Add new User</h3>
+    <h3>Add new Company</h3>
     <form method="post">
         {% csrf_token %}
         <label>
-            <input type="text" name="guid" placeholder="new username">
+            <input type="text" name="company_id" placeholder="new company id">
         </label>
-        <input type="submit" value="Add User">
+        <input type="submit" value="Add Company">
     </form>
-    <h3>App Users</h3>
+    <h3>App Companies</h3>
     <table>
         <thead>
         <tr>
-            <th>created_at</th>
-            <th>guid</th>
+            <th>Created at</th>
+            <th>Company ID</th>
             <th></th>
         </tr>
         </thead>
         <tbody>
-        {% for user in users reversed %}
+        {% for company in companies reversed %}
             <tr>
-                <td>{{ user.created_at }}</td>
-                <td>{{ user.guid }}</td>
+                <td>{{ company.created_at }}</td>
+                <td>{{ company.id }}</td>
                 <td>
-                    <a href="{% url 'user_info' guid=user.guid %}">
+                    <a href="{% url 'company_info' company_id=company.id %}">
                         see connections
                     </a>
                     <br>
-                    <a href="{% url 'connections_ui' guid=user.guid %}">
-                        edit connections
-                    </a>
+                    {% if company.link_page.enabled %}
+                        <a href="{{ company.link_page.url }}">
+                            edit connections
+                        </a>
+                    {% endif %}
                 </td>
             </tr>
         {% endfor %}

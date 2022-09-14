@@ -3,66 +3,52 @@ import datetime
 from django.shortcuts import redirect
 from django.views.generic import FormView, RedirectView, TemplateView
 
-from .conduit_api import ConduitAPI, ConduitUserAPI
-from .forms import AddNewUserForm
+from .conduit_api import ConduitAPI, ConduitCompanyAPI
+from .forms import AddNewCompanyForm
 
 
 class IndexView(FormView):
     template_name = 'index.html'
-    form_class = AddNewUserForm
+    form_class = AddNewCompanyForm
 
     def get_context_data(self, **kwargs):
-        users = ConduitAPI().get_users()
-
-        return {
-            'users': users,
-        }
+        companies = ConduitAPI.get_companies()
+        return {'companies': companies}
 
     def form_valid(self, form):
-        return redirect('user_info', guid=form.cleaned_data['guid'])
+        ConduitAPI.create_company(form.cleaned_data['company_id'])
+        return redirect('company_info', company_id=form.cleaned_data['company_id'])
 
 
-class UserInfo(TemplateView):
-    template_name = 'user_info.html'
+class CompanyInfo(TemplateView):
+    template_name = 'company_info.html'
 
-    def get_context_data(self, guid: str, **kwargs):
-        user_token = ConduitAPI().get_user_token(guid)
-        credentials = ConduitUserAPI(user_token).get_credentials()
-
+    def get_context_data(self, company_id: str, **kwargs):
+        token = ConduitAPI.get_token(company_id)
+        credentials = ConduitCompanyAPI(token).get_credentials()
         return {
-            'user_guid': guid,
+            'company_id': company_id,
             'credentials': credentials,
         }
 
-class UIConnectionsView(RedirectView):
-
-    def get_redirect_url(self, guid: str, *args, **kwargs):
-        user_token = ConduitAPI().get_user_token(guid)
-
-        return ConduitUserAPI(user_token).get_ui_url()
 
 class ConnectView(RedirectView):
-
-    def get_redirect_url(self, guid: str, integration_id: str, *args, **kwargs):
-        user_token = ConduitAPI().get_user_token(guid)
-
-        return ConduitUserAPI(user_token).get_connect_url(integration_id)
+    def get_redirect_url(self, company_id: str, integration_id: str, *args, **kwargs):
+        token = ConduitAPI.get_token(company_id)
+        return ConduitCompanyAPI(token).get_connect_url(integration_id)
 
 
 class DataLakeView(TemplateView):
     template_name = 'data.html'
 
-    def get_context_data(self, guid: str, integration_id: str, account: str, **kwargs):
-        user_token = ConduitAPI().get_user_token(guid)
+    def get_context_data(self, company_id: str, integration_id: str, account: str, **kwargs):
+        token = ConduitAPI.get_token(company_id)
         today = datetime.date.today()
 
-        data = ConduitUserAPI(user_token).get_data_urls(
+        data = ConduitCompanyAPI(token).get_data_urls(
             integration_id,
             date_from=today - datetime.timedelta(days=3),
             date_to=today,
             account=account,
         )
-
-        return {
-            'data': data,
-        }
+        return {'data': data}
