@@ -25,10 +25,9 @@ class CompanyInfo(TemplateView):
 
     def get_context_data(self, company_id: str, **kwargs):
         token = ConduitAPI.get_token(company_id)
-        credentials = ConduitCompanyAPI(token).get_credentials()
+        company = ConduitAPI().get_company(company_id, include_connections=True)
         return {
-            'company_id': company_id,
-            'credentials': credentials,
+            'company': company,
         }
 
 

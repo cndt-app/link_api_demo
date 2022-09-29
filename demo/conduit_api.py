@@ -21,6 +21,11 @@ class ConduitAPI:
         return resp
 
     @classmethod
+    def get_company(cls, company_id: str, include_connections: bool = False) -> dict[str, Any]:
+        res = cls._request(f'link/company/{company_id}/', 'GET', {'include_connections': include_connections})
+        return res
+
+    @classmethod
     def create_company(cls, company_id: str) -> None:
         data = {
             'id': company_id,
@@ -35,7 +40,12 @@ class ConduitAPI:
             'accept': 'application/json',
             'Authorization': f'Bearer {CONDUIT_API_TOKEN}',
         }
-        res = requests.request(method, urljoin(CONDUIT_API_URL, path), headers=headers, json=data)
+
+        if method == 'GET':
+            res = requests.request(method, urljoin(CONDUIT_API_URL, path), headers=headers, params=data)
+        else:
+            res = requests.request(method, urljoin(CONDUIT_API_URL, path), headers=headers, json=data)
+
         res.raise_for_status()
         return res.json()
 
@@ -43,10 +53,6 @@ class ConduitAPI:
 class ConduitCompanyAPI:
     def __init__(self, token: str):
         self._token = token
-
-    def get_credentials(self) -> list[dict[str, Any]]:
-        resp = self._request('link/credentials/')
-        return resp
 
     def get_connect_url(self, integration_id: str) -> str:
         res = self._request(f'link/credentials/connect/{integration_id}/')
