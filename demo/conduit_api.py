@@ -45,10 +45,8 @@ class ConduitAPI:
 
         if method == 'GET':
             res = requests.request(method, url, headers=headers, params=data)
-        elif method == 'POST':
-            res = requests.request(method, url, headers=headers, json=data)
         else:
-            raise NotImplementedError()
+            res = requests.request(method, url, headers=headers, json=data)
 
         res.raise_for_status()
         return res.json()
