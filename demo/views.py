@@ -24,7 +24,6 @@ class CompanyInfo(TemplateView):
     template_name = 'company_info.html'
 
     def get_context_data(self, company_id: str, **kwargs):
-        token = ConduitAPI.get_token(company_id)
         company = ConduitAPI().get_company(company_id, include_connections=True)
         return {
             'company': company,
