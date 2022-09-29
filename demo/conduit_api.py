@@ -41,10 +41,14 @@ class ConduitAPI:
             'Authorization': f'Bearer {CONDUIT_API_TOKEN}',
         }
 
+        url = urljoin(CONDUIT_API_URL, path)
+
         if method == 'GET':
-            res = requests.request(method, urljoin(CONDUIT_API_URL, path), headers=headers, params=data)
+            res = requests.request(method, url, headers=headers, params=data)
+        elif method == 'POST':
+            res = requests.request(method, url, headers=headers, json=data)
         else:
-            res = requests.request(method, urljoin(CONDUIT_API_URL, path), headers=headers, json=data)
+            raise NotImplementedError()
 
         res.raise_for_status()
         return res.json()
