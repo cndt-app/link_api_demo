@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
     <h3>Connections for company with ID: {{ company.id }}</h3>
-    {% for integration in company.connections %}
+    {% for integration in connections %}
         <div style="margin-left: 2em">
             <h4>
                 {{ integration.name }} ({{ integration.id }})
