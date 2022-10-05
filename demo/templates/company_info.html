@@ -2,7 +2,6 @@
 {% block content %}
     <h3>Connections for company with ID: {{ company.id }}</h3>
     {% for integration in connections %}
-        <hr>
         <div style="margin-left: 2em">
             <h4>
                 {{ integration.name }} ({{ integration.id }})

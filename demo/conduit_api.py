@@ -65,6 +65,10 @@ class ConduitCompanyAPI:
         res = self._request(f'link/credentials/connect/{integration_id}/')
         return res['url']
 
+    def get_connections(self) -> str:
+        res = self._request(f'link/credentials/')
+        return res
+
     def get_data_urls(
             self,
             integration_id: str,
