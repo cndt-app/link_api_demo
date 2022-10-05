@@ -2,6 +2,7 @@
 {% block content %}
     <h3>Connections for company with ID: {{ company.id }}</h3>
     {% for integration in connections %}
+        <hr>
         <div style="margin-left: 2em">
             <h4>
                 {{ integration.name }} ({{ integration.id }})
@@ -17,7 +18,6 @@
                 <h5>Existing connections to {{ integration.name }}</h5>
                 <div style="padding: 0 0 1em 1em">
                     {% for cred in integration.credentials %}
-                        <hr>
                         <div style="margin-bottom: 2em">
                             <div>ID: {{ cred.id }}</div>
                             <div>Name: {{ cred.name }}</div>
