@@ -11,6 +11,11 @@ CONDUIT_API_TOKEN = " place link app api key here "
 
 class ConduitAPI:
     @classmethod
+    def get_integrations(cls):
+        resp = cls._request(f'/developers/integrations/')
+        return resp
+
+    @classmethod
     def get_token(cls, company_id: str):
         resp = cls._request(f'/link/company/{company_id}/')
         return resp['api_token']['token']
@@ -59,10 +64,6 @@ class ConduitCompanyAPI:
     def get_connect_url(self, integration_id: str) -> str:
         res = self._request(f'link/credentials/connect/{integration_id}/')
         return res['url']
-
-    def get_connections(self) -> str:
-        res = self._request(f'link/credentials/')
-        return res
 
     def get_data_urls(
             self,
