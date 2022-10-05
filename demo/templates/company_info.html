@@ -17,6 +17,7 @@
                 <h5>Existing connections to {{ integration.name }}</h5>
                 <div style="padding: 0 0 1em 1em">
                     {% for cred in integration.credentials %}
+                        <hr>
                         <div style="margin-bottom: 2em">
                             <div>ID: {{ cred.id }}</div>
                             <div>Name: {{ cred.name }}</div>
