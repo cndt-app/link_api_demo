@@ -89,10 +89,9 @@ class ConduitCompanyAPI:
 
     def _request(self, path: str, data: dict[str, Any] = None) -> Any:
         headers = {
-            'accept': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': f'Bearer {self._token}',
         }
-        data = data or {}
-        data['token'] = self._token
         resp = requests.request('GET', urljoin(CONDUIT_API_URL, path), headers=headers, params=data)
         resp.raise_for_status()
         return resp.json()
